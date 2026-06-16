@@ -117,6 +117,8 @@ const BALLOON_SLOTS  = [
   { left: '42%', bottom: '53%' },
   { left: '58%', bottom: '48%' },
   { left: '74%', bottom: '54%' },
+  { left: '34%', bottom: '60%' },
+  { left: '64%', bottom: '62%' },
 ];
 
 let balloonsLeft  = BALLOON_SLOTS.length;
