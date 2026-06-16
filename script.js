@@ -280,6 +280,10 @@ function renderQuestion() {
 
 function handleAnswer(choiceIndex, btnEl) {
   const q = CONFIG.quiz[currentQuestion];
+
+  if (q.options[choiceIndex] === "Never Gonna Give You Up") {
+    window.open('https://www.youtube.com/watch?v=Aq5WXmQQooo', '_blank');
+  }
   const allOptionBtns = qOptionsEl.querySelectorAll('.quiz-option');
 
   if (choiceIndex === q.correctIndex) {
