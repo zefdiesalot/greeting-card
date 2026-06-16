@@ -6,24 +6,29 @@ const CONFIG = {
   // 3–5 multiple choice questions. correctIndex is 0-based.
   quiz: [
     {
-      question: "Where did we first meet?",
-      options: ["valorant", "Overwatch", "Pokemon Go", "League of Legends"],
-      correctIndex: 0
+      question: "What is your favorite color?",
+      options: ["Orange", "Purple", "Green", "Valorant"],
+      correctIndex: 1
     },
     {
       question: "What do you call me?",
       options: ["tiger", "bee", "demon"],
-      correctIndex: 1
-    },
-    {
-      question: "Finish the sentence: \"Remember when we...\"",
-      options: ["first met", "kissed", "life"],
       correctIndex: 0
     },
+    {
+      question: "What am I to you?",
+      options: ["rando weirdo get away", "cat+fish", "personal flosser","baba"],
+      correctIndex: 3
+    },
+	 {
+      question: "What is your favorite princess?",
+      options: ["cindarella","belle", "me(obviously)","ariel"],
+      correctIndex: 1
+    },
 	{
-      question: "Pick the song that always reminds us of that one day",
-      options: ["Replace me", "Replace me", "Replace me", "Replace me"],
-      correctIndex: 2
+      question: "what song did i promise to perform on our special day?",
+      options: ["Can't Take My Eyes Off You", "Never Gonna Give You Up", "thriller", "Violin Concerto in B-Flat Major, Op. 8 No.10 RV 362 La Caccia: I. Allegro", "please don't go" ],
+      correctIndex: 0
     },
   ],
 
