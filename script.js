@@ -91,13 +91,31 @@ document.addEventListener('mouseenter', () => { cursorEl.style.opacity = '1'; })
    ========================================================= */
 const BALLOON_COLORS = ['#E8758A','#A78BFA','#FBBF24','#34D399','#F87171','#60A5FA','#FB923C'];
 const BALLOON_SLOTS  = [
-  { left: '7%',  bottom: '20%' },
-  { left: '19%', bottom: '34%' },
-  { left: '31%', bottom: '17%' },
-  { left: '45%', bottom: '30%' },
-  { left: '58%', bottom: '22%' },
-  { left: '72%', bottom: '36%' },
-  { left: '87%', bottom: '18%' },
+  // bottom row
+  { left:  '3%', bottom: '14%' },
+  { left: '14%', bottom: '20%' },
+  { left: '25%', bottom: '13%' },
+  { left: '36%', bottom: '21%' },
+  { left: '48%', bottom: '15%' },
+  { left: '59%', bottom: '20%' },
+  { left: '70%', bottom: '13%' },
+  { left: '81%', bottom: '19%' },
+  { left: '91%', bottom: '14%' },
+  // middle row
+  { left:  '7%', bottom: '33%' },
+  { left: '19%', bottom: '39%' },
+  { left: '30%', bottom: '30%' },
+  { left: '42%', bottom: '37%' },
+  { left: '54%', bottom: '31%' },
+  { left: '65%', bottom: '41%' },
+  { left: '76%', bottom: '29%' },
+  { left: '87%', bottom: '36%' },
+  // upper row
+  { left: '11%', bottom: '51%' },
+  { left: '26%', bottom: '47%' },
+  { left: '42%', bottom: '53%' },
+  { left: '58%', bottom: '48%' },
+  { left: '74%', bottom: '54%' },
 ];
 
 let balloonsLeft = BALLOON_SLOTS.length;
