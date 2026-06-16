@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Card For You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="stage" class="stage">
+
+    <!-- ============ SCENE 1: QUIZ GATE ============ -->
+    <section id="quiz-scene" class="scene quiz-scene">
+      <div class="envelope">
+        <div class="seal" id="seal" aria-hidden="true">
+          <svg viewBox="0 0 100 100" class="seal-svg">
+            <circle cx="50" cy="50" r="46" class="seal-ring" />
+            <path id="seal-crack" class="seal-crack" d="" />
+          </svg>
+        </div>
+
+        <div class="quiz-card" id="quiz-card">
+          <p class="quiz-eyebrow">
+            Question <span id="q-index">1</span> / <span id="q-total">4</span>
+          </p>
+
+          <div class="progress-dots" id="progress-dots" aria-hidden="true"></div>
+
+          <h1 id="q-text" class="quiz-question">Loading…</h1>
+
+          <div id="q-options" class="quiz-options" role="group" aria-label="Answer choices"></div>
+
+          <p id="q-feedback" class="quiz-feedback" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCENE 2: FLIP BOOK ============ -->
+    <section id="book-scene" class="scene book-scene" hidden>
+
+      <div class="audio-bar" id="audio-bar">
+        <span class="audio-dot"></span>
+        <span id="audio-label">playing — <span id="song-title">our song</span></span>
+        <button id="mute-btn" class="mute-btn" aria-label="Mute song">🔊</button>
+      </div>
+
+      <div class="book-wrap">
+        <div class="book" id="book"></div>
+      </div>
+
+      <div class="book-controls">
+        <button id="prev-btn" class="nav-btn" aria-label="Previous page">‹</button>
+        <p class="page-indicator">
+          <span id="page-current">1</span> <span class="page-sep">/</span> <span id="page-total">1</span>
+        </p>
+        <button id="next-btn" class="nav-btn" aria-label="Next page">›</button>
+      </div>
+    </section>
+
+  </div>
+
+  <audio id="song" preload="auto" loop></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>

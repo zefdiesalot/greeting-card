@@ -1,0 +1,397 @@
+/* =========================================================
+   DESIGN TOKENS
+   ========================================================= */
+:root {
+  --ink-navy:     #1B2A41;
+  --ink-navy-deep:#13202F;
+  --brass:        #C9A45C;
+  --brass-bright: #E2C07D;
+  --parchment:    #EFE6D8;
+  --parchment-dim:#E2D7C3;
+  --rosewood:     #8C4A4A;
+  --cream-text:   #F5EFE3;
+  --charcoal:     #2E2A26;
+
+  --font-display: 'Fraunces', serif;
+  --font-body:    'Inter', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: radial-gradient(ellipse at 50% -10%, var(--ink-navy) 0%, var(--ink-navy-deep) 70%);
+  font-family: var(--font-body);
+  color: var(--cream-text);
+  overflow: hidden;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brass-bright);
+  outline-offset: 3px;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .6s var(--ease);
+}
+
+.scene[hidden] { display: none; }
+
+/* =========================================================
+   SCENE 1 — QUIZ GATE
+   ========================================================= */
+.envelope {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quiz-card {
+  position: relative;
+  width: min(440px, 86vw);
+  background: var(--parchment);
+  color: var(--charcoal);
+  border-radius: 6px;
+  padding: 2.4rem 2rem 2rem;
+  box-shadow:
+    0 30px 60px -20px rgba(0,0,0,.55),
+    0 0 0 1px rgba(0,0,0,.04) inset;
+  text-align: center;
+}
+
+.quiz-card::before {
+  /* subtle paper fiber texture, no image asset needed */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(0,0,0,.015) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+}
+
+.quiz-eyebrow {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--rosewood);
+  margin: 0 0 .9rem;
+}
+
+.progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: .4rem;
+  margin-bottom: 1.1rem;
+}
+
+.progress-dots .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(46,42,38,.18);
+  transition: background .3s var(--ease), transform .3s var(--ease);
+}
+
+.progress-dots .dot.done {
+  background: var(--rosewood);
+  transform: scale(1.15);
+}
+
+.quiz-question {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 4vw, 1.6rem);
+  line-height: 1.3;
+  margin: 0 0 1.5rem;
+}
+
+.quiz-options {
+  display: grid;
+  gap: .65rem;
+}
+
+.quiz-option {
+  border: 1.5px solid rgba(46,42,38,.18);
+  background: rgba(255,255,255,.4);
+  color: var(--charcoal);
+  border-radius: 5px;
+  padding: .75rem 1rem;
+  font-size: .95rem;
+  font-weight: 500;
+  text-align: left;
+  transition: border-color .2s var(--ease), background .2s var(--ease), transform .15s var(--ease);
+}
+
+.quiz-option:hover { border-color: var(--rosewood); }
+
+.quiz-option.correct {
+  background: rgba(140,74,74,.12);
+  border-color: var(--rosewood);
+}
+
+.quiz-option.wrong {
+  background: rgba(140,74,74,.06);
+  border-color: rgba(140,74,74,.4);
+  animation: shake .35s var(--ease);
+}
+
+.quiz-option:disabled { cursor: default; }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.quiz-feedback {
+  min-height: 1.2em;
+  margin: .9rem 0 0;
+  font-size: .85rem;
+  color: var(--rosewood);
+}
+
+/* Wax seal, sits on top of the card, cracks open on full solve */
+.seal {
+  position: absolute;
+  top: -34px;
+  width: 68px;
+  height: 68px;
+  z-index: 2;
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,.4));
+  transition: transform .9s var(--ease), opacity .6s .4s var(--ease);
+}
+
+.seal-svg { width: 100%; height: 100%; }
+
+.seal-ring {
+  fill: var(--rosewood);
+  stroke: var(--brass);
+  stroke-width: 2.5;
+}
+
+.seal-crack {
+  fill: none;
+  stroke: var(--ink-navy-deep);
+  stroke-width: 1.4;
+  opacity: 0;
+}
+
+.seal.cracking {
+  animation: seal-pop .15s 2;
+}
+
+.seal.broken {
+  transform: scale(1.3) rotate(8deg) translateY(-10px);
+  opacity: 0;
+}
+
+.seal.broken .seal-crack { opacity: 1; }
+
+@keyframes seal-pop {
+  0%, 100% { transform: scale(1) rotate(0); }
+  50% { transform: scale(1.06) rotate(-3deg); }
+}
+
+/* card exit, when quiz fully solved */
+.quiz-scene.solved .quiz-card {
+  transition: transform .7s .15s var(--ease), opacity .6s .25s var(--ease);
+  transform: scale(.92) translateY(14px);
+  opacity: 0;
+}
+
+.quiz-scene.fading { opacity: 0; pointer-events: none; }
+
+/* =========================================================
+   SCENE 2 — FLIP BOOK
+   ========================================================= */
+.book-scene { opacity: 0; }
+.book-scene.visible { opacity: 1; }
+
+.audio-bar {
+  position: absolute;
+  top: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  padding: .45rem .9rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .03em;
+  color: var(--cream-text);
+}
+
+.audio-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brass-bright);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: .4; transform: scale(.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+.mute-btn {
+  background: none;
+  border: none;
+  color: var(--cream-text);
+  font-size: .9rem;
+  line-height: 1;
+  padding: 0 0 0 .3rem;
+}
+
+.book-wrap {
+  perspective: 2200px;
+  width: min(520px, 84vw);
+  height: min(640px, 64vh);
+}
+
+.book {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.page {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform .85s var(--ease);
+  border-radius: 4px;
+  box-shadow: 0 18px 40px -12px rgba(0,0,0,.55);
+}
+
+.page-front, .page-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--parchment);
+}
+
+.page-back {
+  transform: rotateY(180deg);
+  background:
+    repeating-linear-gradient(135deg, rgba(201,164,92,.07) 0 2px, transparent 2px 14px),
+    var(--parchment-dim);
+}
+
+.page-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.page-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  text-align: center;
+  padding: 2rem;
+  color: var(--charcoal);
+}
+
+.page-placeholder .ph-num {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--rosewood);
+}
+
+.page-placeholder .ph-hint {
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .04em;
+  color: rgba(46,42,38,.55);
+  max-width: 220px;
+}
+
+.page.flipped { transform: rotateY(-180deg); }
+
+.book-controls {
+  position: absolute;
+  bottom: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+}
+
+.nav-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  color: var(--cream-text);
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s var(--ease), border-color .2s var(--ease);
+}
+
+.nav-btn:hover { background: rgba(255,255,255,.14); border-color: var(--brass); }
+.nav-btn:disabled { opacity: .3; cursor: default; }
+.nav-btn:disabled:hover { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
+
+.page-indicator {
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  letter-spacing: .04em;
+  color: var(--cream-text);
+  min-width: 56px;
+  text-align: center;
+}
+
+.page-sep { opacity: .4; }
+
+/* =========================================================
+   RESPONSIVE + MOTION
+   ========================================================= */
+@media (max-width: 480px) {
+  .book-wrap { width: 88vw; height: 58vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page, .seal, .scene, .quiz-card, .quiz-option { transition-duration: .01ms !important; animation: none !important; }
+}
