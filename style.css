@@ -24,7 +24,7 @@
 html, body {
   margin: 0;
   height: 100%;
-  background: radial-gradient(ellipse at 50% -10%, var(--ink-navy) 0%, var(--ink-navy-deep) 70%);
+  background: url('assets/Background.jpg') center center / cover no-repeat fixed;
   font-family: var(--font-body);
   color: var(--cream-text);
   overflow: hidden;
