@@ -153,7 +153,7 @@ function initSplash() {
     const span = document.createElement('span');
     span.className = ch === ' ' ? '' : 'letter';
     span.textContent = ch;
-    if (ch !== ' ') span.style.animationDelay = `${0.6 + i * 0.07}s`;
+    if (ch !== ' ') span.style.animationDelay = `${2.6 + i * 0.07}s`;
     subEl.appendChild(span);
   });
 
