@@ -74,6 +74,7 @@ const songTitleEl= document.getElementById('song-title');
 const audioEl    = document.getElementById('song');
 const muteBtn    = document.getElementById('mute-btn');
 const splashScene = document.getElementById('splash-scene');
+const introEl    = document.getElementById('intro-song');
 
 /* =========================================================
    BUTTERFLY CURSOR
@@ -118,8 +119,30 @@ const BALLOON_SLOTS  = [
   { left: '74%', bottom: '54%' },
 ];
 
-let balloonsLeft = BALLOON_SLOTS.length;
+let balloonsLeft  = BALLOON_SLOTS.length;
+let introStarted  = false;
 const balloonsWrap = document.getElementById('balloons');
+
+function startIntro() {
+  if (introStarted) return;
+  introStarted = true;
+  introEl.src = 'assets/audio/intro music.mp3';
+  introEl.volume = 1;
+  introEl.play().catch(() => {});
+}
+
+function fadeOutIntro() {
+  if (introEl.paused) return;
+  const tick = setInterval(() => {
+    if (introEl.volume > 0.06) {
+      introEl.volume = Math.max(0, introEl.volume - 0.06);
+    } else {
+      introEl.volume = 0;
+      introEl.pause();
+      clearInterval(tick);
+    }
+  }, 60);
+}
 
 function initSplash() {
   BALLOON_SLOTS.forEach((slot, i) => {
@@ -151,6 +174,7 @@ function createBalloon(slot, color, index) {
 
   el.addEventListener('click', e => {
     e.stopPropagation();
+    startIntro();
     if (el.dataset.popped) return;
     el.dataset.popped = '1';
     const r = body.getBoundingClientRect();
@@ -183,6 +207,7 @@ function spawnConfetti(cx, cy, color) {
 }
 
 function transitionToQuiz() {
+  fadeOutIntro();
   splashScene.classList.add('fading');
   setTimeout(() => {
     splashScene.setAttribute('hidden', '');
