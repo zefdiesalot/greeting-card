@@ -451,15 +451,20 @@ button {
   overflow: visible;
   margin-top: 104px;
   margin-bottom: .5rem;
-  animation: arch-bounce .9s cubic-bezier(.22,.61,.36,1) .3s both;
 }
 
-@keyframes arch-bounce {
+.hb-letter {
+  animation: hb-bounce .65s ease-out both;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+@keyframes hb-bounce {
   0%   { transform: translateY(0); }
-  28%  { transform: translateY(-22px); }
-  48%  { transform: translateY(0); }
-  68%  { transform: translateY(-10px); }
-  84%  { transform: translateY(0); }
+  30%  { transform: translateY(-14px); }
+  50%  { transform: translateY(0); }
+  70%  { transform: translateY(-7px); }
+  85%  { transform: translateY(0); }
   100% { transform: translateY(0); }
 }
 

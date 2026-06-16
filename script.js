@@ -147,6 +147,20 @@ function fadeOutIntro() {
 }
 
 function initSplash() {
+  // Animate "happy birthday" letter by letter along the arch
+  const archTextPath = document.querySelector('.splash-arch textPath');
+  const hbStr = archTextPath.textContent;
+  archTextPath.textContent = '';
+  [...hbStr].forEach((ch, i) => {
+    const tspan = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+    tspan.textContent = ch === ' ' ? ' ' : ch;
+    if (ch !== ' ') {
+      tspan.classList.add('hb-letter');
+      tspan.style.animationDelay = `${i * 0.07}s`;
+    }
+    archTextPath.appendChild(tspan);
+  });
+
   // Animate "my butterfly" letter by letter
   const subEl = document.getElementById('splash-sub');
   const text = subEl.textContent;
