@@ -322,11 +322,89 @@ function buildBook() {
   });
 
   updatePageUI();
+  initDrag();
+}
+
+/* =========================================================
+   DRAG-TO-FLIP
+   ========================================================= */
+const drag = { active: false, page: null, direction: null, startX: 0 };
+
+function initDrag() {
+  bookEl.addEventListener('mousedown',  dragStart);
+  bookEl.addEventListener('touchstart', dragStart, { passive: false });
+  window.addEventListener('mousemove',  dragMove);
+  window.addEventListener('touchmove',  dragMove, { passive: false });
+  window.addEventListener('mouseup',    dragEnd);
+  window.addEventListener('touchend',   dragEnd);
+}
+
+function dragStart(e) {
+  drag.startX    = e.touches ? e.touches[0].clientX : e.clientX;
+  drag.active    = true;
+  drag.page      = null;
+  drag.direction = null;
+}
+
+function dragMove(e) {
+  if (!drag.active) return;
+  const x  = e.touches ? e.touches[0].clientX : e.clientX;
+  const dx = x - drag.startX;
+
+  if (!drag.direction && Math.abs(dx) > 8) {
+    const pages = bookEl.querySelectorAll('.page');
+    if (dx < 0 && currentPage < CONFIG.pages.length - 1) {
+      drag.direction = 'forward';
+      drag.page = pages[currentPage];
+    } else if (dx > 0 && currentPage > 0) {
+      drag.direction = 'backward';
+      drag.page = pages[currentPage - 1];
+      drag.page.style.zIndex = CONFIG.pages.length + 10;
+    } else {
+      drag.active = false;
+      return;
+    }
+    drag.page.style.willChange = 'transform';
+  }
+
+  if (!drag.page) return;
+  e.preventDefault();
+
+  const w = bookEl.offsetWidth;
+  const angle = drag.direction === 'forward'
+    ? Math.max(-180, Math.min(0,   (dx / w) * 180))
+    : Math.max(-180, Math.min(0, -180 + (dx / w) * 180));
+
+  drag.page.style.transition = 'none';
+  drag.page.style.transform  = `rotateY(${angle}deg)`;
+}
+
+function dragEnd(e) {
+  if (!drag.active) return;
+  drag.active = false;
+  if (!drag.page) return;
+
+  const x  = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+  const dx = x - drag.startX;
+  const progress = Math.abs(dx) / bookEl.offsetWidth;
+
+  drag.page.style.transition = '';
+  drag.page.style.transform  = '';
+  drag.page.style.willChange = '';
+
+  if (drag.direction === 'forward'  && progress > 0.3) currentPage++;
+  if (drag.direction === 'backward' && progress > 0.3) currentPage--;
+
+  updatePageUI();
+  drag.page = null;
+  drag.direction = null;
 }
 
 function updatePageUI() {
   const pages = bookEl.querySelectorAll('.page');
   pages.forEach((p, i) => {
+    p.style.transform  = '';
+    p.style.willChange = '';
     if (i < currentPage) {
       p.classList.add('flipped');
       p.style.zIndex = i;
