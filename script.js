@@ -207,7 +207,6 @@ function spawnConfetti(cx, cy, color) {
 }
 
 function transitionToQuiz() {
-  fadeOutIntro();
   splashScene.classList.add('fading');
   setTimeout(() => {
     splashScene.setAttribute('hidden', '');
@@ -311,6 +310,7 @@ function revealBook() {
    ========================================================= */
 function startSong() {
   if (!CONFIG.songSrc) return;
+  fadeOutIntro();
   // This runs inside the click-handler chain from the final answer,
   // so it counts as a user gesture and browsers will allow autoplay.
   audioEl.play().catch(() => {
