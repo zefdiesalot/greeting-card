@@ -445,14 +445,11 @@ button {
   pointer-events: none;
 }
 
-.splash-eyebrow {
-  font-family: var(--font-mono);
-  font-size: .78rem;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: var(--brass-bright);
-  margin: 0 0 .4rem;
-  opacity: .85;
+.splash-arch {
+  width: min(500px, 88vw);
+  display: block;
+  overflow: visible;
+  margin-bottom: -.5rem;
 }
 
 .splash-name {
@@ -466,13 +463,12 @@ button {
 }
 
 .splash-sub {
-  font-family: var(--font-display);
-  font-size: clamp(1rem, 3.2vw, 1.7rem);
-  font-weight: 400;
-  font-style: italic;
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-weight: 600;
   color: var(--cream-text);
   margin: .45rem 0 0;
-  opacity: .88;
+  opacity: .92;
 }
 
 .balloons-wrap {

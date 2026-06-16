@@ -6,7 +6,7 @@
 <title>A Card For You</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,7 +16,14 @@
     <!-- ============ SCENE 0: BIRTHDAY SPLASH ============ -->
     <section id="splash-scene" class="scene splash-scene">
       <div class="splash-text">
-        <p class="splash-eyebrow">happy birthday</p>
+        <svg class="splash-arch" viewBox="0 0 500 125" overflow="visible" xmlns="http://www.w3.org/2000/svg" aria-label="happy birthday">
+          <defs>
+            <path id="arch-path" d="M 20,120 A 280,280 0 0,0 480,120"/>
+          </defs>
+          <text font-family="'Fraunces', serif" font-size="50" font-weight="700" fill="#E2C07D" letter-spacing="3">
+            <textPath href="#arch-path" startOffset="50%" text-anchor="middle">happy birthday</textPath>
+          </text>
+        </svg>
         <h1 class="splash-name">Tiff</h1>
         <p class="splash-sub">my butterfly</p>
       </div>
