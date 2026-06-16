@@ -579,6 +579,7 @@ button {
   border: 2.5px solid #FBBF24;
   padding: .5rem 1.4rem;
   border-radius: 6px;
+  filter: brightness(1.8);
   animation: hint-pulse 2.6s ease-in-out infinite;
 }
 
