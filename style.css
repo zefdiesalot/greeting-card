@@ -449,6 +449,7 @@ button {
   width: min(500px, 88vw);
   display: block;
   overflow: visible;
+  margin-top: 24px;
   margin-bottom: .5rem;
 }
 
