@@ -13,8 +13,19 @@
 
   <div id="stage" class="stage">
 
+    <!-- ============ SCENE 0: BIRTHDAY SPLASH ============ -->
+    <section id="splash-scene" class="scene splash-scene">
+      <div class="splash-text">
+        <p class="splash-eyebrow">happy birthday</p>
+        <h1 class="splash-name">Tiff</h1>
+        <p class="splash-sub">my butterfly</p>
+      </div>
+      <div id="balloons" class="balloons-wrap"></div>
+      <p class="splash-hint">pop all the balloons ✦</p>
+    </section>
+
     <!-- ============ SCENE 1: QUIZ GATE ============ -->
-    <section id="quiz-scene" class="scene quiz-scene">
+    <section id="quiz-scene" class="scene quiz-scene" hidden>
       <div class="envelope">
         <div class="seal" id="seal" aria-hidden="true">
           <svg viewBox="0 0 100 100" class="seal-svg">
@@ -64,6 +75,24 @@
   </div>
 
   <audio id="song" preload="auto" loop></audio>
+
+  <div id="cursor-butterfly" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="40" viewBox="0 0 48 40">
+      <g class="bf-wings-left">
+        <ellipse cx="14" cy="14" rx="13" ry="9.5" fill="white" fill-opacity="0.88" transform="rotate(-22 14 14)"/>
+        <ellipse cx="11" cy="28" rx="9" ry="6" fill="white" fill-opacity="0.72" transform="rotate(18 11 28)"/>
+      </g>
+      <g class="bf-wings-right">
+        <ellipse cx="34" cy="14" rx="13" ry="9.5" fill="white" fill-opacity="0.88" transform="rotate(22 34 14)"/>
+        <ellipse cx="37" cy="28" rx="9" ry="6" fill="white" fill-opacity="0.72" transform="rotate(-18 37 28)"/>
+      </g>
+      <ellipse cx="24" cy="20" rx="2.2" ry="10" fill="white"/>
+      <path d="M24 10 Q19 4 15 2" stroke="white" stroke-width="1.2" fill="none" stroke-opacity="0.85"/>
+      <path d="M24 10 Q29 4 33 2" stroke="white" stroke-width="1.2" fill="none" stroke-opacity="0.85"/>
+      <circle cx="15" cy="2" r="2" fill="white" fill-opacity="0.85"/>
+      <circle cx="33" cy="2" r="2" fill="white" fill-opacity="0.85"/>
+    </svg>
+  </div>
 
   <script src="script.js"></script>
 </body>

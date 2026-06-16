@@ -73,6 +73,106 @@ const pageTotEl  = document.getElementById('page-total');
 const songTitleEl= document.getElementById('song-title');
 const audioEl    = document.getElementById('song');
 const muteBtn    = document.getElementById('mute-btn');
+const splashScene = document.getElementById('splash-scene');
+
+/* =========================================================
+   BUTTERFLY CURSOR
+   ========================================================= */
+const cursorEl = document.getElementById('cursor-butterfly');
+document.addEventListener('mousemove', e => {
+  cursorEl.style.left = e.clientX + 'px';
+  cursorEl.style.top  = e.clientY + 'px';
+});
+document.addEventListener('mouseleave', () => { cursorEl.style.opacity = '0'; });
+document.addEventListener('mouseenter', () => { cursorEl.style.opacity = '1'; });
+
+/* =========================================================
+   SPLASH + BALLOONS
+   ========================================================= */
+const BALLOON_COLORS = ['#E8758A','#A78BFA','#FBBF24','#34D399','#F87171','#60A5FA','#FB923C'];
+const BALLOON_SLOTS  = [
+  { left: '7%',  bottom: '20%' },
+  { left: '19%', bottom: '34%' },
+  { left: '31%', bottom: '17%' },
+  { left: '45%', bottom: '30%' },
+  { left: '58%', bottom: '22%' },
+  { left: '72%', bottom: '36%' },
+  { left: '87%', bottom: '18%' },
+];
+
+let balloonsLeft = BALLOON_SLOTS.length;
+const balloonsWrap = document.getElementById('balloons');
+
+function initSplash() {
+  BALLOON_SLOTS.forEach((slot, i) => {
+    createBalloon(slot, BALLOON_COLORS[i % BALLOON_COLORS.length], i);
+  });
+}
+
+function createBalloon(slot, color, index) {
+  const el = document.createElement('div');
+  el.className = 'balloon';
+  el.style.left   = slot.left;
+  el.style.bottom = slot.bottom;
+  el.style.setProperty('--color', color);
+
+  const bobber = document.createElement('div');
+  bobber.className = 'balloon-bobber';
+  bobber.style.setProperty('--appear-delay', `${(index * 0.14).toFixed(2)}s`);
+  bobber.style.setProperty('--bob-dur', `${(2.3 + Math.random() * 1.4).toFixed(1)}s`);
+
+  const body = document.createElement('div');
+  body.className = 'balloon-body';
+
+  const string = document.createElement('div');
+  string.className = 'balloon-string';
+
+  bobber.appendChild(body);
+  bobber.appendChild(string);
+  el.appendChild(bobber);
+
+  el.addEventListener('click', e => {
+    e.stopPropagation();
+    if (el.dataset.popped) return;
+    el.dataset.popped = '1';
+    const r = body.getBoundingClientRect();
+    popBalloon(el, bobber, body, color, r.left + r.width / 2, r.top + r.height / 2);
+  });
+
+  balloonsWrap.appendChild(el);
+}
+
+function popBalloon(el, bobber, body, color, cx, cy) {
+  bobber.style.animation = 'none';
+  body.style.animation   = 'balloon-pop .22s ease-out forwards';
+  el.querySelector('.balloon-string').style.opacity = '0';
+  spawnConfetti(cx, cy, color);
+  setTimeout(() => el.remove(), 280);
+  balloonsLeft--;
+  if (balloonsLeft === 0) setTimeout(transitionToQuiz, 420);
+}
+
+function spawnConfetti(cx, cy, color) {
+  for (let i = 0; i < 9; i++) {
+    const dot   = document.createElement('div');
+    dot.className = 'confetti-dot';
+    const angle = (i / 9) * Math.PI * 2;
+    const dist  = 36 + Math.random() * 28;
+    dot.style.cssText = `left:${cx}px;top:${cy}px;background:${color};--dx:${(Math.cos(angle)*dist).toFixed(1)}px;--dy:${(Math.sin(angle)*dist).toFixed(1)}px`;
+    document.body.appendChild(dot);
+    dot.addEventListener('animationend', () => dot.remove(), { once: true });
+  }
+}
+
+function transitionToQuiz() {
+  splashScene.classList.add('fading');
+  setTimeout(() => {
+    splashScene.setAttribute('hidden', '');
+    quizScene.removeAttribute('hidden');
+    requestAnimationFrame(() => requestAnimationFrame(() => quizScene.classList.add('visible')));
+    initQuiz();
+  }, 680);
+}
 
 /* =========================================================
    QUIZ ENGINE
@@ -264,4 +364,4 @@ document.addEventListener('keydown', (e) => {
 /* =========================================================
    BOOT
    ========================================================= */
-initQuiz();
+initSplash();
