@@ -145,6 +145,18 @@ function fadeOutIntro() {
 }
 
 function initSplash() {
+  // Animate "my butterfly" letter by letter
+  const subEl = document.getElementById('splash-sub');
+  const text = subEl.textContent;
+  subEl.textContent = '';
+  [...text].forEach((ch, i) => {
+    const span = document.createElement('span');
+    span.className = ch === ' ' ? '' : 'letter';
+    span.textContent = ch;
+    if (ch !== ' ') span.style.animationDelay = `${0.6 + i * 0.07}s`;
+    subEl.appendChild(span);
+  });
+
   BALLOON_SLOTS.forEach((slot, i) => {
     createBalloon(slot, BALLOON_COLORS[i % BALLOON_COLORS.length], i);
   });
