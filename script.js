@@ -129,7 +129,7 @@ function startIntro() {
   if (introStarted) return;
   introStarted = true;
   introEl.src = 'assets/audio/intro music.mp3';
-  introEl.volume = 1;
+  introEl.volume = 0.45;
   introEl.play().catch(() => {});
 }
 
