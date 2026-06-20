@@ -393,6 +393,7 @@ function buildBook() {
       front.appendChild(ph);
     };
     img.src = src;
+    if (i === 3) img.style.objectFit = 'contain';
     front.appendChild(img);
 
     const back = document.createElement('div');
