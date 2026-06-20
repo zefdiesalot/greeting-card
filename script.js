@@ -349,12 +349,12 @@ function revealBook() {
    ========================================================= */
 function startSong() {
   if (!CONFIG.songSrc) return;
-  fadeOutIntro();
-  // This runs inside the click-handler chain from the final answer,
-  // so it counts as a user gesture and browsers will allow autoplay.
+  // Stop intro immediately (synchronous) so it never overlaps the main song.
+  // Calling pause() inside the click-handler chain is required on mobile.
+  introEl.pause();
+  introEl.currentTime = 0;
+  introEl.volume = 0;
   audioEl.play().catch(() => {
-    // Autoplay was still blocked (rare, depends on browser settings) —
-    // show a tappable play affordance instead of failing silently.
     muteBtn.textContent = '▶';
     muteBtn.setAttribute('aria-label', 'Play song');
     muteBtn.onclick = () => { audioEl.play(); muteBtn.onclick = toggleMute; muteBtn.textContent = '🔊'; };
