@@ -159,7 +159,8 @@ function initSplash() {
     tspan.textContent = ch === ' ' ? ' ' : ch;
     if (ch !== ' ') {
       tspan.classList.add('hb-letter');
-      tspan.style.animationDelay = `${i * 0.07}s`;
+      tspan.style.setProperty('--bounce-delay', `${i * 0.07}s`);
+      tspan.style.setProperty('--wave-delay',   `${0.35 + i * 0.1}s`);
     }
     archTextPath.appendChild(tspan);
   });

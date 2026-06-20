@@ -454,7 +454,9 @@ button {
 }
 
 .hb-letter {
-  animation: hb-bounce .65s ease-out both;
+  animation:
+    hb-bounce    .65s ease-out        var(--bounce-delay, 0s) both,
+    hb-color-wave 1.4s ease-in-out   var(--wave-delay,  0s) both;
   transform-box: fill-box;
   transform-origin: center bottom;
 }
@@ -466,6 +468,17 @@ button {
   70%  { transform: translateY(-7px); }
   85%  { transform: translateY(0); }
   100% { transform: translateY(0); }
+}
+
+@keyframes hb-color-wave {
+  0%   { fill: white; }
+  14%  { fill: #E8758A; }
+  28%  { fill: #FB923C; }
+  43%  { fill: #FBBF24; }
+  57%  { fill: #34D399; }
+  71%  { fill: #60A5FA; }
+  86%  { fill: #A78BFA; }
+  100% { fill: white; }
 }
 
 .splash-name {
