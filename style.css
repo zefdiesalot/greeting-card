@@ -537,6 +537,14 @@ button {
 
 .balloon:hover .balloon-body { transform: scale(1.08); }
 
+.balloon-body.heart {
+  border-radius: 0;
+  height: 74px;
+  clip-path: path('M 37,10 C 37,4 31,0 24,0 C 10,0 0,11 0,24 C 0,50 37,74 37,74 C 37,74 74,50 74,24 C 74,11 64,0 50,0 C 43,0 37,4 37,10 Z');
+}
+
+.balloon-body.heart::after { display: none; }
+
 .balloon-body::after {
   content: '';
   position: absolute;

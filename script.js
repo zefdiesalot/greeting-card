@@ -41,8 +41,6 @@ const CONFIG = {
     "assets/pages/page-2.png",
     "assets/pages/page-3.png",
     "assets/pages/page-4.png",
-    "assets/pages/page-5.png",
-    "assets/pages/page-6.png"
   ],
 
   // Put your audio file at this path (mp3 or m4a both work in browsers).
@@ -196,7 +194,7 @@ function createBalloon(slot, color, index) {
   bobber.style.setProperty('--bob-dur', `${(2.3 + Math.random() * 1.4).toFixed(1)}s`);
 
   const body = document.createElement('div');
-  body.className = 'balloon-body';
+  body.className = index % 2 === 1 ? 'balloon-body heart' : 'balloon-body';
 
   const string = document.createElement('div');
   string.className = 'balloon-string';
