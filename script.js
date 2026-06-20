@@ -194,7 +194,10 @@ function createBalloon(slot, color, index) {
   bobber.style.setProperty('--bob-dur', `${(2.3 + Math.random() * 1.4).toFixed(1)}s`);
 
   const body = document.createElement('div');
-  body.className = index % 2 === 1 ? 'balloon-body heart' : 'balloon-body';
+  const heartVariants = ['heart', 'heart-deep', 'heart-deeper'];
+  body.className = index % 2 === 0
+    ? 'balloon-body'
+    : `balloon-body ${heartVariants[Math.floor(index / 2) % 3]}`;
 
   const string = document.createElement('div');
   string.className = 'balloon-string';

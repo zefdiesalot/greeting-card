@@ -537,13 +537,30 @@ button {
 
 .balloon:hover .balloon-body { transform: scale(1.08); }
 
-.balloon-body.heart {
+.balloon-body.heart,
+.balloon-body.heart-deep,
+.balloon-body.heart-deeper {
   border-radius: 0;
   height: 74px;
+}
+
+.balloon-body.heart {
   clip-path: path('M 37,10 C 37,4 31,0 24,0 C 10,0 0,11 0,24 C 0,50 37,74 37,74 C 37,74 74,50 74,24 C 74,11 64,0 50,0 C 43,0 37,4 37,10 Z');
 }
 
-.balloon-body.heart::after { display: none; }
+.balloon-body.heart-deep {
+  height: 78px;
+  clip-path: path('M 37,19 C 37,8 29,0 20,0 C 7,0 0,13 0,28 C 0,55 37,78 37,78 C 37,78 74,55 74,28 C 74,13 67,0 54,0 C 45,0 37,8 37,19 Z');
+}
+
+.balloon-body.heart-deeper {
+  height: 82px;
+  clip-path: path('M 37,26 C 37,11 27,0 18,0 C 5,0 0,15 0,32 C 0,58 37,82 37,82 C 37,82 74,58 74,32 C 74,15 69,0 56,0 C 47,0 37,11 37,26 Z');
+}
+
+.balloon-body.heart::after,
+.balloon-body.heart-deep::after,
+.balloon-body.heart-deeper::after { display: none; }
 
 .balloon-body::after {
   content: '';
